@@ -17,7 +17,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CoordsCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralCommandNode<ServerCommandSource> coordsCommandNode = dispatcher.register(literal("coords"));
-        final LiteralCommandNode<ServerCommandSource> coordsCommandNodeFinal = dispatcher.register(literal("coords")
+        dispatcher.register(literal("coords")
             .requires(ServerCommandSource::isExecutedByPlayer)
             .requires(source -> source.getServer().isDedicated())
             .executes(context -> sendCoords(

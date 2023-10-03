@@ -31,7 +31,7 @@ public class Main implements ModInitializer {
 		CommandScheduler.scheduleSaved();
 
 		Main.LOGGER.info("Essentials Initialised");
-	};
+	}
 
 	public static MinecraftServer getServer() {
 		return Server;

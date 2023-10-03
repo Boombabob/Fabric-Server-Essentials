@@ -34,7 +34,7 @@ public class CommandScheduler {
                 }
             }
         }
-    };
+    }
 
     /**
      * Schedules a new command that is first scheduled with the scheduler, and then saved to the config
@@ -64,7 +64,7 @@ public class CommandScheduler {
         Main.CONFIG.save();
         context.getSource().sendFeedback(() -> Text.literal("Command successfully scheduled"), true);
         return Command.SINGLE_SUCCESS;
-    };
+    }
 
     /**
      * Schedules command to the scheduler at specified time
@@ -91,7 +91,7 @@ public class CommandScheduler {
      */
     public static void runCommand(String command) {
         Main.getServer().getCommandManager().executeWithPrefix(Main.getServer().getCommandSource(), command);
-    };
+    }
 
     public static int listScheduledCommands(CommandContext<ServerCommandSource> context) {
         for (Map.Entry<String,String> entry : Main.CONFIG.scheduledTasks.entrySet()) {
