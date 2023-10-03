@@ -16,5 +16,5 @@ public class InfoCommand {
                 context.getSource().sendFeedback(() -> Text.literal(Main.CONFIG.serverInfo), false);
                 return Command.SINGLE_SUCCESS;
             }));
-    };
+    }
 }

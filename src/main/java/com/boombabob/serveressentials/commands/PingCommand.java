@@ -18,5 +18,5 @@ public class PingCommand {
                     source.sendFeedback(() -> Text.literal("Your ping is: " + player.pingMilliseconds + " ms"), false);
                     return Command.SINGLE_SUCCESS;
                 }));
-    };
+    }
 }

@@ -38,5 +38,5 @@ public class ScheduleCommand {
                             ))))));
 
         dispatcher.register(literal("schCmd").redirect(scheduleCommandNode));
-    };
+    }
 }

@@ -47,5 +47,5 @@ public class CoordsCommand {
             recipient.sendMessage(Text.literal(sendingPlayerPos), false);
         }
         return Command.SINGLE_SUCCESS;
-    };
-};
+    }
+}

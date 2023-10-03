@@ -37,5 +37,5 @@ public class BroadcastCommand {
                             }
                             return Command.SINGLE_SUCCESS;
                         }))));
-    };
+    }
 }
