@@ -22,4 +22,14 @@ public class SEConfig implements Config {
 
     @Comment(value = "Information about the server, which users can see with the /info command")
     public String serverInfo = "";
+
+    @Comment(value = """
+        Argument for restarting the server, which can be modified for your needs (such as increasing ram)
+        %s is replaced with the server jar directory when run, but you can put in this path manually.
+        java can be replaced with a specific java installation, but this is usually unnecessary.
+        """)
+    public String restartArgument = "java -jar %s nogui";
+
+    @Comment(value = "Set to true to restart the server automatically when shut down or after (some) crashes")
+    public boolean shouldRestartAutomatically = false;
 }

@@ -20,13 +20,13 @@ public class Main implements ModInitializer {
 	public void onInitialize() {
 		// Gets the minecraft server instance, useful for many different purposes
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> Server = server);
-		ServerLifecycleEvents.SERVER_STOPPING.register(server -> Server = null);
 		// Register commands
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> PingCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> InfoCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> ScheduleCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> BroadcastCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> CoordsCommand.register(dispatcher));
+		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> RestartCommand.register(dispatcher));
 		// Schedule commands saved in config
 		CommandScheduler.scheduleSaved();
 
@@ -36,4 +36,7 @@ public class Main implements ModInitializer {
 	public static MinecraftServer getServer() {
 		return Server;
 	}
+	public static void setServer(MinecraftServer server) {
+		Server = server;
+    }
 }
