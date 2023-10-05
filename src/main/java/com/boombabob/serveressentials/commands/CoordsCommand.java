@@ -17,20 +17,23 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class CoordsCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralCommandNode<ServerCommandSource> coordsCommandNode = dispatcher.register(literal("coords"));
-        dispatcher.register(literal("coords")
-            .requires(ServerCommandSource::isExecutedByPlayer)
-            .requires(source -> source.getServer().isDedicated())
-            .executes(context -> sendCoords(
+        // this for loop is necessary in order for the default argument (sending to all players) to work for both aliases
+        String[] coordsAliases = {"coords", "c"};
+        for (String coordsAlias : coordsAliases) {
+            dispatcher.register(literal(coordsAlias)
+                .requires(ServerCommandSource::isExecutedByPlayer)
+                .requires(source -> source.getServer().isDedicated())
+                .executes(context -> sendCoords(
                     context.getSource().getPlayer(),
                     context.getSource().getServer().getPlayerManager().getPlayerList()
-            ))
+                ))
                 .then(argument("Recipients", players())
                     .executes(context -> sendCoords(
-                            context.getSource().getPlayer(),
-                            getPlayers(context, "Recipients")
+                        context.getSource().getPlayer(),
+                        getPlayers(context, "Recipients")
                     ))
-                        .redirect(coordsCommandNode)));
-        dispatcher.register(literal("c").redirect(coordsCommandNode));
+                    .redirect(coordsCommandNode)));
+        }
     }
 
     public static int sendCoords(ServerPlayerEntity sender, Collection<ServerPlayerEntity> recipients) {
