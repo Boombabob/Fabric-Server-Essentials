@@ -1,5 +1,7 @@
 package com.boombabob.serveressentials;
 
+import org.apache.commons.lang3.SystemUtils;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -20,7 +22,11 @@ public class Restarter {
             if (command != null) {
                 try {
                     Main.LOGGER.info("Running " + command);
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        command = "cmd.exe /c start " + command;
+                    }
                     Runtime.getRuntime().exec(command);
+
                 } catch (IOException ioException) {
                     Main.LOGGER.error("Error running jar file");
                 }
