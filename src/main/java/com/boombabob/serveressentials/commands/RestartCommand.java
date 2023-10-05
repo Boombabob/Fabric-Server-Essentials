@@ -14,7 +14,7 @@ public class RestartCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("restart")
             .executes(context -> restart())
-            .then(literal("On Shutdown")
+            .then(literal("on shutdown")
                 .then(argument("True/False", bool()))
                     .executes(context -> {
                         Main.CONFIG.shouldRestartAutomatically = getBool(context, "True/False");

@@ -16,7 +16,7 @@ public class ScheduleCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralCommandNode<ServerCommandSource> scheduleCommandNode = dispatcher.register(literal("scheduleCommand")
             .requires(source -> source.hasPermissionLevel(4))
-                .then(literal("Set")
+                .then(literal("set")
                     .then(argument("hour", integer(0, 23))
                         .then(argument("minute", integer(0, 59))
                             .then(argument("command", greedyString())
@@ -26,9 +26,9 @@ public class ScheduleCommand {
                                     getInteger(context, "hour"),
                                     getInteger(context, "minute")
                                 ))))))
-                .then(literal("List")
+                .then(literal("list")
                         .executes(CommandScheduler::listScheduledCommands))
-                .then(literal("Remove")
+                .then(literal("remove")
                     .then(argument("hour", integer(0, 23))
                         .then(argument("minute", integer(0, 59))
                             .executes(context -> CommandScheduler.removeCommand(

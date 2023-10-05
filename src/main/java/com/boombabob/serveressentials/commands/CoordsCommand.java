@@ -27,10 +27,10 @@ public class CoordsCommand {
                     context.getSource().getPlayer(),
                     context.getSource().getServer().getPlayerManager().getPlayerList()
                 ))
-                .then(argument("Recipients", players())
+                .then(argument("recipients", players())
                     .executes(context -> sendCoords(
                         context.getSource().getPlayer(),
-                        getPlayers(context, "Recipients")
+                        getPlayers(context, "recipients")
                     ))
                     .redirect(coordsCommandNode)));
         }
