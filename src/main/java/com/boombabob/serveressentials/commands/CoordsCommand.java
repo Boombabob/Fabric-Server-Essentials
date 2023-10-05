@@ -49,6 +49,8 @@ public class CoordsCommand {
         for (ServerPlayerEntity recipient : recipients) {
             recipient.sendMessage(Text.literal(sendingPlayerPos), false);
         }
+        sender.sendMessage(Text.literal("You are at %d, %d, %d in the %s"
+            .formatted(senderX, senderY, senderZ, senderDimension)));
         return Command.SINGLE_SUCCESS;
     }
 }
