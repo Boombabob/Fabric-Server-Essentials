@@ -29,8 +29,9 @@ public class CommandScheduler {
             if (Main.getServer() != null) {
                 try {
                     schedule(entry.getValue(), LocalTime.parse(entry.getKey()));
+                    Main.LOGGER.info(entry.toString());
                 } catch (DateTimeParseException dateTimeParseException) {
-                    Main.LOGGER.warn("Invalid date specified in %i file, unable to schedule that command");
+                    Main.LOGGER.warn("Invalid date specified in config, unable to schedule that command");
                 }
             }
         }
