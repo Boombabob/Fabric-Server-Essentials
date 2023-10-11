@@ -47,15 +47,18 @@ public class CoordsCommand {
         String sendingPlayerPos = "I am at %d, %d, %d in the %s"
             .formatted(senderX, senderY, senderZ, senderDimension);
         for (ServerPlayerEntity recipient : recipients) {
-            recipient.sendChatMessage(SentMessage.of(
-                SignedMessage.ofUnsigned(sendingPlayerPos)),
-                false,
-                MessageType.params(MessageType.MSG_COMMAND_INCOMING, sender.getCommandSource())
-            );
+            if (recipient != sender) {
+                recipient.sendChatMessage(SentMessage.of(
+                    SignedMessage.ofUnsigned(sendingPlayerPos)),
+                    false,
+                    MessageType.params(MessageType.MSG_COMMAND_INCOMING, sender.getCommandSource())
+                );
+            }
             sender.sendChatMessage(SentMessage.of(
                 SignedMessage.ofUnsigned(sendingPlayerPos)),
                 false,
-                MessageType.params(MessageType.MSG_COMMAND_OUTGOING, recipient.getCommandSource())
+                MessageType.params(MessageType.MSG_COMMAND_OUTGOING,    recipient.getCommandSource())
+                    .withTargetName(recipient.getDisplayName())
             );
         }
         return Command.SINGLE_SUCCESS;
