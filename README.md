@@ -24,7 +24,7 @@ This restarts the Minecraft server, but there is also an option to make the serv
 ## Info command
 **/info**
 
-This command allows players to see information about the server. To change the information displayed, edit it in the config.
+This command allows players to see information about the server. To change the information displayed, edit it in the config and use \n for new lines.
 
 
 ## Coords command

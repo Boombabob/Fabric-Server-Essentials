@@ -12,12 +12,13 @@ import org.slf4j.LoggerFactory;
 public class Main implements ModInitializer {
 	public static final String MODID = "server-essentials";
     public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
-	private static MinecraftServer Server;
+	private static MinecraftServer Server = null;
 	public static final SEConfig CONFIG = OmegaConfig.register(SEConfig.class);
 
 	@Override
 	public void onInitialize() {
 		// Gets the minecraft server instance, useful for many different purposes
+		// Also schedules saved commands once the minecraft instance is available
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {Server = server; CommandScheduler.scheduleSaved();});
 		// Register commands
 		ISECommand[] commandClassList = {
