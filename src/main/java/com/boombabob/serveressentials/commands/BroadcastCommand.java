@@ -17,8 +17,8 @@ import static net.minecraft.command.argument.ColorArgumentType.color;
 import static net.minecraft.command.argument.ColorArgumentType.getColor;
 import static net.minecraft.server.command.CommandManager.argument;
 
-public class BroadcastCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+public class BroadcastCommand implements ISECommand {
+    public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("broadcast")
             .requires(source -> source.hasPermissionLevel(2))
                 .then(argument("color", color())

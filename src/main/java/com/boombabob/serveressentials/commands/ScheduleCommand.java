@@ -12,8 +12,8 @@ import static com.mojang.brigadier.arguments.StringArgumentType.greedyString;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class ScheduleCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+public class ScheduleCommand implements ISECommand {
+    public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralCommandNode<ServerCommandSource> scheduleCommandNode = dispatcher.register(literal("scheduleCommand")
             .requires(source -> source.hasPermissionLevel(4))
                 .then(literal("set")

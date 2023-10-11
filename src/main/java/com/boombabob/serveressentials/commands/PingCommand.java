@@ -7,8 +7,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.literal;
-public class PingCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+public class PingCommand implements ISECommand {
+    public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("ping")
                 .requires(ServerCommandSource::isExecutedByPlayer)
                 .executes(context ->

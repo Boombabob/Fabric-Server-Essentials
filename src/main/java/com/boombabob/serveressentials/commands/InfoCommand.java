@@ -8,8 +8,8 @@ import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class InfoCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+public class InfoCommand implements ISECommand{
+    public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("info")
             .executes(context ->
             {

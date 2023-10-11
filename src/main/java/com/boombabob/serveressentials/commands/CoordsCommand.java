@@ -16,8 +16,8 @@ import static net.minecraft.command.argument.EntityArgumentType.players;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class CoordsCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+public class CoordsCommand implements ISECommand {
+    public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralCommandNode<ServerCommandSource> coordsCommandNode = dispatcher.register(literal("coords"));
         // this for loop is necessary in order for the default argument (sending to all players) to work for both aliases
         String[] coordsAliases = {"coords", "c"};

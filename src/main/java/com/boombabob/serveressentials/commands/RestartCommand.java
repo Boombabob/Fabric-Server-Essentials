@@ -10,8 +10,8 @@ import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class RestartCommand {
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
+public class RestartCommand implements ISECommand {
+    public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("restart")
             .executes(context -> restart())
             .then(literal("on shutdown")
