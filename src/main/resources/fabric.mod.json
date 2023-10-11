@@ -3,13 +3,13 @@
 	"id": "server-essentials",
 	"version": "${version}",
 	"name": "Server Essentials",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Essential commands for any minecraft server",
 	"authors": [
 		"Boombabob"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/fabric-server-essentials",
+		"sources": "https://github.com/Boombabob/Fabric-Server-Essentials"
 	},
 	"license": "MIT",
 	"icon": "assets/server-essentials/icon.png",
