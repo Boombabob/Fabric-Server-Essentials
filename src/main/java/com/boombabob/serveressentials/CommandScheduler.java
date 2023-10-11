@@ -30,7 +30,7 @@ public class CommandScheduler {
                 try {
                     schedule(entry.getValue(), LocalTime.parse(entry.getKey()));
                 } catch (DateTimeParseException dateTimeParseException) {
-                    Main.LOGGER.warn("Invalid date specified in config, unable to schedule that command");
+                    Main.LOGGER.warn("Invalid date specified in config, unable to schedule %s command".formatted(entry.getValue()));
                 }
             }
         }
