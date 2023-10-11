@@ -19,7 +19,7 @@ public class Main implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		// Gets the minecraft server instance, useful for many different purposes
-		ServerLifecycleEvents.SERVER_STARTING.register(server -> Server = server);
+		ServerLifecycleEvents.SERVER_STARTING.register(server -> {Server = server; CommandScheduler.scheduleSaved();});
 		// Register commands
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> PingCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> InfoCommand.register(dispatcher));
@@ -27,8 +27,6 @@ public class Main implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> BroadcastCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> CoordsCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> RestartCommand.register(dispatcher));
-		// Schedule commands saved in config
-		CommandScheduler.scheduleSaved();
 
 		Main.LOGGER.info("Essentials Initialised");
 	}
