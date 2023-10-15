@@ -13,6 +13,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class RestartCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(literal("restart")
+            .requires(source -> source.hasPermissionLevel(4))
             .executes(context -> restart())
             .then(literal("on shutdown")
                 .then(argument("True/False", bool()))
