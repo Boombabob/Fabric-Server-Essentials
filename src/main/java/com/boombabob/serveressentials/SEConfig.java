@@ -30,6 +30,9 @@ public class SEConfig implements Config {
         """)
     public String restartArgument = "java -jar %s nogui";
 
-    @Comment(value = "Set to true to restart the server automatically when shut down or after (some) crashes")
+    @Comment(value = """
+        Set to true to restart the server automatically when shut down or after (some) crashes,
+        But /stop still stops the server, so use /restart instead if you want to restart the server
+        """)
     public boolean shouldRestartAutomatically = false;
 }
