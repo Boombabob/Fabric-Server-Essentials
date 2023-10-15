@@ -57,7 +57,7 @@ public class CoordsCommand implements ISECommand {
             sender.sendChatMessage(SentMessage.of(
                 SignedMessage.ofUnsigned(sendingPlayerPos)),
                 false,
-                MessageType.params(MessageType.MSG_COMMAND_OUTGOING,    recipient.getCommandSource())
+                MessageType.params(MessageType.MSG_COMMAND_OUTGOING, recipient.getCommandSource())
                     .withTargetName(recipient.getDisplayName())
             );
         }
