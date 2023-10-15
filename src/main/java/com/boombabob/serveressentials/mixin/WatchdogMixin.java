@@ -1,5 +1,6 @@
 package com.boombabob.serveressentials.mixin;
 
+import com.boombabob.serveressentials.Main;
 import com.boombabob.serveressentials.Restarter;
 import net.minecraft.server.dedicated.DedicatedServerWatchdog;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WatchdogMixin {
     @Inject(at = @At("HEAD"), method = "shutdown")
     private void init(CallbackInfo info) {
-        Restarter.restart();
+        if (Main.CONFIG.shouldRestartAutomatically) {
+            Restarter.restart();
+        }
     }
 }
