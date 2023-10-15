@@ -1,9 +1,6 @@
 package com.boombabob.serveressentials.mixin;
 
-import com.boombabob.serveressentials.CommandScheduler;
-import com.boombabob.serveressentials.Main;
 import com.boombabob.serveressentials.Restarter;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServerWatchdog;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
