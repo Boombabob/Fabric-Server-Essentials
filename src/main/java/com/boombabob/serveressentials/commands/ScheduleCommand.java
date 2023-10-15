@@ -35,7 +35,9 @@ public class ScheduleCommand implements ISECommand {
                                 context,
                                 getInteger(context, "hour"),
                                 getInteger(context, "minute")
-                            ))))));
+                            ))
+                .then(literal("reload")
+                    .executes(context -> CommandScheduler.reload()))))));
 
         dispatcher.register(literal("schCmd").redirect(scheduleCommandNode));
     }

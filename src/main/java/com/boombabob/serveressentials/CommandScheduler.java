@@ -119,4 +119,11 @@ public class CommandScheduler {
         context.getSource().sendFeedback(() -> Text.literal("Specified time does not exist"), true);
         return 0;
     }
+
+    public static int reload() {
+        scheduler.shutdown();
+        scheduler = Executors.newScheduledThreadPool(1);
+        CommandScheduler.scheduleSaved();
+        return Command.SINGLE_SUCCESS;
+    }
 }
