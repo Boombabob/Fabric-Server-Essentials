@@ -1,6 +1,6 @@
-package com.boombabob.serveressentials.mixin;
+package com.boombabob.fabricserveressentials.mixin;
 
-import com.boombabob.serveressentials.Main;
+import com.boombabob.fabricserveressentials.Main;
 import net.minecraft.server.dedicated.command.StopCommand;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Inject;

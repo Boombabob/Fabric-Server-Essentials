@@ -1,4 +1,4 @@
-package com.boombabob.serveressentials;
+package com.boombabob.fabricserveressentials;
 
 
 import draylar.omegaconfig.api.Comment;

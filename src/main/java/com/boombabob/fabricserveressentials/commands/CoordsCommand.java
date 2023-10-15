@@ -1,8 +1,10 @@
-package com.boombabob.serveressentials.commands;
+package com.boombabob.fabricserveressentials.commands;
 
+import com.boombabob.fabricserveressentials.Main;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.network.message.SentMessage;
 import net.minecraft.network.message.SignedMessage;
@@ -23,6 +25,7 @@ public class CoordsCommand implements ISECommand {
         String[] coordsAliases = {"coords", "c"};
         for (String coordsAlias : coordsAliases) {
             dispatcher.register(literal(coordsAlias)
+                .requires(Permissions.require("%s.coords".formatted(Main.MODID)))
                 .requires(ServerCommandSource::isExecutedByPlayer)
                 .requires(source -> source.getServer().isDedicated())
                 .executes(context -> sendCoords(

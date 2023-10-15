@@ -1,4 +1,4 @@
-package com.boombabob.serveressentials.commands;
+package com.boombabob.fabricserveressentials.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.server.command.ServerCommandSource;

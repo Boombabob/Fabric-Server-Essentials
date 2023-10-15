@@ -1,8 +1,8 @@
-package com.boombabob.serveressentials.mixin;
+package com.boombabob.fabricserveressentials.mixin;
 
-import com.boombabob.serveressentials.CommandScheduler;
-import com.boombabob.serveressentials.Main;
-import com.boombabob.serveressentials.Restarter;
+import com.boombabob.fabricserveressentials.CommandScheduler;
+import com.boombabob.fabricserveressentials.Main;
+import com.boombabob.fabricserveressentials.Restarter;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftServer.class)
 public class ShutdownMixin {
-
 	@Inject(at = @At("TAIL"), method = "shutdown")
 	private void init(CallbackInfo info) {
 		CommandScheduler.scheduler.shutdown();
@@ -19,5 +18,4 @@ public class ShutdownMixin {
 		Restarter.restart();
 		Main.setServer(null);
 	}
-
 }

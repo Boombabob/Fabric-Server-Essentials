@@ -1,8 +1,10 @@
-package com.boombabob.serveressentials.commands;
+package com.boombabob.fabricserveressentials.commands;
 
-import com.boombabob.serveressentials.CommandScheduler;
+import com.boombabob.fabricserveressentials.CommandScheduler;
+import com.boombabob.fabricserveressentials.Main;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.server.command.ServerCommandSource;
 
 import static com.mojang.brigadier.arguments.IntegerArgumentType.getInteger;
@@ -15,6 +17,7 @@ import static net.minecraft.server.command.CommandManager.literal;
 public class ScheduleCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         final LiteralCommandNode<ServerCommandSource> scheduleCommandNode = dispatcher.register(literal("scheduleCommand")
+            .requires(Permissions.require("%s.scheduleCommand".formatted(Main.MODID)))
             .requires(source -> source.hasPermissionLevel(4))
                 .then(literal("set")
                     .then(argument("hour", integer(0, 23))

@@ -1,7 +1,9 @@
-package com.boombabob.serveressentials.commands;
+package com.boombabob.fabricserveressentials.commands;
 
+import com.boombabob.fabricserveressentials.Main;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -20,6 +22,7 @@ import static net.minecraft.server.command.CommandManager.argument;
 public class BroadcastCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("broadcast")
+            .requires(Permissions.require("%s.broadcast".formatted(Main.MODID)))
             .requires(source -> source.hasPermissionLevel(2))
                 .then(argument("color", color())
                     .then(argument("message", greedyString())

@@ -11,8 +11,11 @@ base {
 }
 
 repositories {
-	// omega config repo
+	// Omega Config repo
 	maven { url 'https://maven.draylar.dev/releases' }
+
+	// Fabric Permissions API repo
+	maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
 }
 
 dependencies {
@@ -23,8 +26,11 @@ dependencies {
 	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// omega config
+	// Omega Config
 	modImplementation include("dev.draylar.omega-config:omega-config-base:${project.omega_config_version}")
+
+	// Fabric Permissions API
+	modImplementation include("me.lucko:fabric-permissions-api:${project.permissions_api_version}")
 }
 
 processResources {

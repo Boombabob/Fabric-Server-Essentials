@@ -1,6 +1,6 @@
-package com.boombabob.serveressentials;
+package com.boombabob.fabricserveressentials;
 
-import com.boombabob.serveressentials.commands.*;
+import com.boombabob.fabricserveressentials.commands.*;
 import draylar.omegaconfig.OmegaConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Main implements ModInitializer {
-	public static final String MODID = "server-essentials";
+	public static final String MODID = "fabric-server-essentials";
     public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 	private static MinecraftServer Server = null;
 	public static final SEConfig CONFIG = OmegaConfig.register(SEConfig.class);

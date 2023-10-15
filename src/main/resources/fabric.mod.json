@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "server-essentials",
+	"id": "fabric-server-essentials",
 	"version": "${version}",
-	"name": "Server Essentials",
+	"name": "Fabric Server Essentials",
 	"description": "Essential commands for any minecraft server",
 	"authors": [
 		"Boombabob"
@@ -12,17 +12,17 @@
 		"sources": "https://github.com/Boombabob/Fabric-Server-Essentials"
 	},
 	"license": "MIT",
-	"icon": "assets/server-essentials/icon.png",
+	"icon": "assets/fabric-server-essentials/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.boombabob.serveressentials.Main"
+			"com.boombabob.fabricserveressentials.Main"
 		]
 	},
 	"mixins": [
-		"server-essentials.mixins.json",
+      "fabric-server-essentials.mixins.json",
 		{
-			"config": "server-essentials.client.mixins.json",
+			"config": "fabric-server-essentials.client.mixins.json",
 			"environment": "client"
 		}
 	],
