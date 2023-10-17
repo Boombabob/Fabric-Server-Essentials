@@ -74,20 +74,17 @@ public class CommandScheduler {
     public static void schedule(String command, LocalTime targetTime) {
         LocalTime currentTime = LocalTime.now();
         long time_until = currentTime.until(targetTime, ChronoUnit.MINUTES);
-        // Makes sure that tasks that are too soon are not scheduled
-        // preventing actions happening several times upon server restart
-        if (-2 >= time_until || time_until >= 2) {
-            // Rolls time over, as -ve time until can be produced by LocalTime.until
-            if (time_until < 0) {
-                time_until += 1440;
-            }
-            scheduler.scheduleAtFixedRate(
-                () -> runCommand(command),
-                time_until,
-                1440,
-                TimeUnit.MINUTES
-            );
+        // Rolls time over, as -ve time until can be produced by LocalTime.until
+        // Also makes sure actions are not improperly scheduled in the first 2 minutes
+        if (time_until <= 2) {
+            time_until += 1440;
         }
+        scheduler.scheduleAtFixedRate(
+            () -> runCommand(command),
+            time_until,
+            1440,
+            TimeUnit.MINUTES
+        );
     }
 
     /**
