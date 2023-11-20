@@ -21,9 +21,10 @@ import static net.minecraft.server.command.CommandManager.argument;
 
 public class BroadcastCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("broadcast")
-            .requires(Permissions.require("%s.broadcast".formatted(Main.MODID)))
-            .requires(source -> source.hasPermissionLevel(2))
+        if (Main.CONFIG.broadcastCommandEnabled) {
+            dispatcher.register(CommandManager.literal("broadcast")
+                .requires(Permissions.require("%s.broadcast".formatted(Main.MODID)))
+                .requires(source -> source.hasPermissionLevel(2))
                 .then(argument("color", color())
                     .then(argument("message", greedyString())
                         .executes(context ->
@@ -40,5 +41,6 @@ public class BroadcastCommand implements ISECommand {
                             }
                             return Command.SINGLE_SUCCESS;
                         }))));
+        }
     }
 }

@@ -22,8 +22,8 @@
 	"mixins": [
       "fabric-server-essentials.mixins.json",
 		{
-			"config": "fabric-server-essentials.client.mixins.json",
-			"environment": "client"
+			"config": "fabric-server-essentials.mixins.json",
+			"environment": "server"
 		}
 	],
 	"depends": {

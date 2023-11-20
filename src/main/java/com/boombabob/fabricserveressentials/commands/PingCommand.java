@@ -11,9 +11,10 @@ import net.minecraft.text.Text;
 import static net.minecraft.server.command.CommandManager.literal;
 public class PingCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("ping")
-            .requires(Permissions.require("%s.ping".formatted(Main.MODID)))
-            .requires(ServerCommandSource::isExecutedByPlayer)
+        if (Main.CONFIG.pingCommandEnabled) {
+            dispatcher.register(literal("ping")
+                .requires(Permissions.require("%s.ping".formatted(Main.MODID)))
+                .requires(ServerCommandSource::isExecutedByPlayer)
                 .executes(context ->
                 {
                     ServerCommandSource source = context.getSource();
@@ -21,5 +22,6 @@ public class PingCommand implements ISECommand {
                     source.sendFeedback(() -> Text.literal("Your ping is: " + player.pingMilliseconds + " ms"), false);
                     return Command.SINGLE_SUCCESS;
                 }));
+        }
     }
 }

@@ -27,7 +27,8 @@ public class Main implements ModInitializer {
 			new InfoCommand(),
 			new PingCommand(),
 			new RestartCommand(),
-			new ScheduleCommand()
+			new ScheduleCommand(),
+			new FlexItemCommand()
 		};
 		for (ISECommand command : commandClassList) {
 			CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> command.register(dispatcher));

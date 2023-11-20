@@ -35,4 +35,16 @@ public class SEConfig implements Config {
         But /stop still stops the server, so use /restart instead if you want to restart the server
         """)
     public boolean shouldRestartAutomatically = false;
+
+    @Comment(value = """
+        Following values are whether certain commands are enabled or not, by default all are.
+        """)
+    public boolean broadcastCommandEnabled = true;
+    public boolean coordsCommandEnabled = true;
+    public boolean flexItemCommandEnabled = true;
+    public boolean infoCommandEnabled = true;
+    public boolean pingCommandEnabled = true;
+    public boolean restartCommandEnabled = true;
+    public boolean scheduleCommandEnabled = true;
+
 }

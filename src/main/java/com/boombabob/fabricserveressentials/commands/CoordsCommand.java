@@ -20,24 +20,26 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class CoordsCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        final LiteralCommandNode<ServerCommandSource> coordsCommandNode = dispatcher.register(literal("coords"));
-        // this for loop is necessary in order for the default argument (sending to all players) to work for both aliases
-        String[] coordsAliases = {"coords", "c"};
-        for (String coordsAlias : coordsAliases) {
-            dispatcher.register(literal(coordsAlias)
-                .requires(Permissions.require("%s.coords".formatted(Main.MODID)))
-                .requires(ServerCommandSource::isExecutedByPlayer)
-                .requires(source -> source.getServer().isDedicated())
-                .executes(context -> sendCoords(
-                    context.getSource().getPlayer(),
-                    context.getSource().getServer().getPlayerManager().getPlayerList()
-                ))
-                .then(argument("recipients", players())
+        if (Main.CONFIG.coordsCommandEnabled) {
+            final LiteralCommandNode<ServerCommandSource> coordsCommandNode = dispatcher.register(literal("coords"));
+            // this for loop is necessary in order for the default argument (sending to all players) to work for both aliases
+            String[] coordsAliases = {"coords", "c"};
+            for (String coordsAlias : coordsAliases) {
+                dispatcher.register(literal(coordsAlias)
+                    .requires(Permissions.require("%s.coords".formatted(Main.MODID)))
+                    .requires(ServerCommandSource::isExecutedByPlayer)
+                    .requires(source -> source.getServer().isDedicated())
                     .executes(context -> sendCoords(
                         context.getSource().getPlayer(),
-                        getPlayers(context, "recipients")
+                        context.getSource().getServer().getPlayerManager().getPlayerList()
                     ))
-                    .redirect(coordsCommandNode)));
+                    .then(argument("recipients", players())
+                        .executes(context -> sendCoords(
+                            context.getSource().getPlayer(),
+                            getPlayers(context, "recipients")
+                        ))
+                        .redirect(coordsCommandNode)));
+            }
         }
     }
 

@@ -28,7 +28,7 @@ public class CommandScheduler {
             // Makes sure the server is actually running (just in case)
             if (Main.getServer() != null) {
                 try {
-                    schedule(entry.getValue(), LocalTime.parse(entry.getKey()));
+                    schedule(entry.getValue(), LocalTime.parse(entry.getKey()), true);
                 } catch (DateTimeParseException dateTimeParseException) {
                     Main.LOGGER.warn("Invalid date specified in config, unable to schedule %s command".formatted(entry.getValue()));
                 }
@@ -43,7 +43,7 @@ public class CommandScheduler {
      * @param minute minute of that hour the command will be executed
      * @return Command.SINGLE_SUCCESS (==1), or 0 if error occurred
      */
-    public static int scheduleNew(CommandContext<ServerCommandSource> context, String command, int hour, int minute) {
+    public static int scheduleNew(CommandContext<ServerCommandSource> context, String command, int hour, int minute, boolean repeats) {
         LocalTime targetTime;
         try {
             targetTime = LocalTime.of(hour, minute);
@@ -59,9 +59,11 @@ public class CommandScheduler {
                 Text.literal("%s replaced on schedule".formatted(Main.CONFIG.scheduledTasks.get(targetTime.toString()))),
                 true);
         }
-        schedule(command, targetTime);
-        Main.CONFIG.scheduledTasks.put(targetTime.toString(), command);
-        Main.CONFIG.save();
+        schedule(command, targetTime, repeats);
+        if (repeats) {
+            Main.CONFIG.scheduledTasks.put(targetTime.toString(), command);
+            Main.CONFIG.save();
+        }
         context.getSource().sendFeedback(() -> Text.literal("Command successfully scheduled"), true);
         return Command.SINGLE_SUCCESS;
     }
@@ -70,8 +72,9 @@ public class CommandScheduler {
      * Schedules command to the scheduler at specified time
      * @param command Command to be executed
      * @param targetTime Time for the command to be executed
+     * @param repeats Whether scheduled action repeats at set time daily
      */
-    public static void schedule(String command, LocalTime targetTime) {
+    public static void schedule(String command, LocalTime targetTime, boolean repeats) {
         LocalTime currentTime = LocalTime.now();
         long time_until = currentTime.until(targetTime, ChronoUnit.MINUTES);
         // Rolls time over, as -ve time until can be produced by LocalTime.until
@@ -79,12 +82,20 @@ public class CommandScheduler {
         if (time_until <= 2) {
             time_until += 1440;
         }
-        scheduler.scheduleAtFixedRate(
-            () -> runCommand(command),
-            time_until,
-            1440,
-            TimeUnit.MINUTES
-        );
+        if (repeats) {
+            scheduler.scheduleAtFixedRate(
+                () -> runCommand(command),
+                time_until,
+                1440,
+                TimeUnit.MINUTES
+            );
+        } else {
+            scheduler.schedule(
+                () -> runCommand(command),
+                time_until,
+                TimeUnit.MINUTES
+            );
+        }
     }
 
     /**
@@ -117,10 +128,9 @@ public class CommandScheduler {
         return 0;
     }
 
-    public static int reload() {
+    public static void reload() {
         scheduler.shutdown();
         scheduler = Executors.newScheduledThreadPool(1);
         CommandScheduler.scheduleSaved();
-        return Command.SINGLE_SUCCESS;
     }
 }

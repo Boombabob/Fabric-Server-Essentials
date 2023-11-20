@@ -11,12 +11,14 @@ import static net.minecraft.server.command.CommandManager.literal;
 
 public class InfoCommand implements ISECommand{
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("info")
-            .requires(Permissions.require("%s.info".formatted(Main.MODID)))
-            .executes(context ->
-            {
-                context.getSource().sendFeedback(() -> Text.literal(Main.CONFIG.serverInfo), false);
-                return Command.SINGLE_SUCCESS;
-            }));
+        if (Main.CONFIG.infoCommandEnabled) {
+            dispatcher.register(literal("info")
+                .requires(Permissions.require("%s.info".formatted(Main.MODID)))
+                .executes(context ->
+                {
+                    context.getSource().sendFeedback(() -> Text.literal(Main.CONFIG.serverInfo), false);
+                    return Command.SINGLE_SUCCESS;
+                }));
+        }
     }
 }
