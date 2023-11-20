@@ -21,7 +21,7 @@ public class Main implements ModInitializer {
 		// Also schedules saved commands once the minecraft instance is available
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {Server = server; CommandScheduler.scheduleSaved();});
 		// Register commands
-		ISECommand[] commandClassList = {
+		ISECommand[] commandsList = {
 			new BroadcastCommand(),
 			new CoordsCommand(),
 			new InfoCommand(),
@@ -30,7 +30,7 @@ public class Main implements ModInitializer {
 			new ScheduleCommand(),
 			new FlexItemCommand()
 		};
-		for (ISECommand command : commandClassList) {
+		for (ISECommand command : commandsList) {
 			CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> command.register(dispatcher));
 		}
 		Main.LOGGER.info("Essentials Initialised");
