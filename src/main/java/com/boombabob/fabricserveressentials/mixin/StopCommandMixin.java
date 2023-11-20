@@ -3,8 +3,8 @@ package com.boombabob.fabricserveressentials.mixin;
 import com.boombabob.fabricserveressentials.Main;
 import net.minecraft.server.dedicated.command.StopCommand;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(StopCommand.class)
