@@ -5,17 +5,17 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import me.lucko.fabric.api.permissions.v0.Permissions;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item.TooltipContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.Texts;
 import net.minecraft.util.Formatting;
 
 import java.util.Collection;
@@ -50,7 +50,7 @@ public class FlexItemCommand implements ISECommand{
     public static int flexItem(PlayerEntity sourcePlayer, Collection<ServerPlayerEntity> recipientPlayers) {
         ItemStack itemStack = sourcePlayer.getEquippedStack(EquipmentSlot.MAINHAND);
         if (!itemStack.isOf(Items.AIR)) {
-            List<Text> itemStackToolip = itemStack.getTooltip(sourcePlayer, TooltipContext.ADVANCED);
+            List<Text> itemStackToolip = itemStack.getTooltip(TooltipContext.create(sourcePlayer.getWorld()), sourcePlayer, TooltipType.ADVANCED);
             MutableText itemStackName;
             if (itemStack.getCount() == 1) {
                 itemStackName = itemStackToolip.get(0).copy();
@@ -59,17 +59,18 @@ public class FlexItemCommand implements ISECommand{
                         .append(itemStackToolip.get(0))
                             .setStyle(itemStackToolip.get(0).getStyle());
             }
-            Text message = sourcePlayer.getDisplayName().copy().append(" has ").append(itemStackName.setStyle(
-                    itemStackName.getStyle().withHoverEvent(
-                        HoverEvent.Action.SHOW_TEXT.buildHoverEvent(Texts.join(itemStackToolip, Text.literal("\n")))
-                    )
-                )
+
+            // Make item info show up when hovered
+            itemStackName.setStyle(itemStackName.getStyle().withHoverEvent(
+                    new HoverEvent(HoverEvent.Action.SHOW_ITEM, new HoverEvent.ItemStackContent(itemStack)))
             );
+            Text message = sourcePlayer.getDisplayName().copy().append(" has ").append(itemStackName);
+
             for (ServerPlayerEntity player : recipientPlayers) {
                 player.sendMessage(message);
             }
         } else {
-            sourcePlayer.sendMessage(Text.literal("You are not holding any items in your main hand!").formatted(Formatting.RED));
+            sourcePlayer.sendMessage(Text.literal("You are not holding any items in your main hand!").formatted(Formatting.RED), false);
         }
         return Command.SINGLE_SUCCESS;
     }

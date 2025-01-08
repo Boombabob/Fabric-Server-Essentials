@@ -1,7 +1,6 @@
 package com.boombabob.fabricserveressentials;
 
 import com.boombabob.fabricserveressentials.commands.*;
-import draylar.omegaconfig.OmegaConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -13,13 +12,15 @@ public class Main implements ModInitializer {
 	public static final String MODID = "fabric-server-essentials";
     public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 	private static MinecraftServer Server = null;
-	public static final SEConfig CONFIG = OmegaConfig.register(SEConfig.class);
+	public static SEConfig CONFIG = null;
 
 	@Override
 	public void onInitialize() {
 		// Gets the minecraft server instance, useful for many different purposes
 		// Also schedules saved commands once the minecraft instance is available
 		ServerLifecycleEvents.SERVER_STARTING.register(server -> {Server = server; CommandScheduler.scheduleSaved();});
+		SEConfig.HANDLER.load();
+		CONFIG = SEConfig.HANDLER.instance();
 		// Register commands
 		ISECommand[] commandsList = {
 			new BroadcastCommand(),

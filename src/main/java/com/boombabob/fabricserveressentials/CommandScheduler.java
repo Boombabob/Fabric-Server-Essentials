@@ -62,7 +62,7 @@ public class CommandScheduler {
         schedule(command, targetTime, repeats);
         if (repeats) {
             Main.CONFIG.scheduledTasks.put(targetTime.toString(), command);
-            Main.CONFIG.save();
+            SEConfig.HANDLER.save();
         }
         context.getSource().sendFeedback(() -> Text.literal("Command successfully scheduled"), true);
         return Command.SINGLE_SUCCESS;
@@ -122,6 +122,7 @@ public class CommandScheduler {
         if (Main.CONFIG.scheduledTasks.containsKey(time)) {
             context.getSource().sendFeedback(() -> Text.literal(Main.CONFIG.scheduledTasks.get(time) + " removed"), true);
             Main.CONFIG.scheduledTasks.remove(time);
+            SEConfig.HANDLER.save();
             return Command.SINGLE_SUCCESS;
         }
         context.getSource().sendFeedback(() -> Text.literal("Specified time does not exist"), true);

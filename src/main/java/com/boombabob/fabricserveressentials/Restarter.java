@@ -9,8 +9,10 @@ public class Restarter {
     public static void restart() {
         if (Main.CONFIG.shouldRestartAutomatically) {
             String command = null;
+            // Make sure user has not specified a different restart argument without the default path
             if (Main.CONFIG.restartArgument.contains("%s")) {
-                File[] jarFiles = Main.getServer().getRunDirectory().listFiles((dir1, name) -> name.endsWith("jar"));
+                // Look for .jar files (aka the minecraft server), and just use first one found.
+                File[] jarFiles = Main.getServer().getRunDirectory().toFile().listFiles((dir1, name) -> name.endsWith("jar"));
                 if (jarFiles == null || jarFiles.length == 0) {
                     Main.LOGGER.error("Jar file not found, try replacing %s in the config with the file path");
                 } else {

@@ -5,10 +5,11 @@ import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.literal;
+
 public class PingCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         if (Main.CONFIG.pingCommandEnabled) {
@@ -18,8 +19,8 @@ public class PingCommand implements ISECommand {
                 .executes(context ->
                 {
                     ServerCommandSource source = context.getSource();
-                    ServerPlayerEntity player = source.getPlayer();
-                    source.sendFeedback(() -> Text.literal("Your ping is: " + player.pingMilliseconds + " ms"), false);
+                    ServerPlayNetworkHandler playerNetworkHandler = source.getPlayer().networkHandler;
+                    source.sendFeedback(() -> Text.literal("Your ping is: " + playerNetworkHandler.getLatency() + " ms"), false);
                     return Command.SINGLE_SUCCESS;
                 }));
         }

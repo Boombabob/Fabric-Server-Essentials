@@ -9,13 +9,15 @@ import net.minecraft.text.Text;
 
 import static net.minecraft.server.command.CommandManager.literal;
 
-public class InfoCommand implements ISECommand{
+public class InfoCommand implements ISECommand {
     public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         if (Main.CONFIG.infoCommandEnabled) {
             dispatcher.register(literal("info")
                 .requires(Permissions.require("%s.info".formatted(Main.MODID)))
+                .requires(source -> source.hasPermissionLevel(1))
                 .executes(context ->
                 {
+                    Main.LOGGER.info(Main.CONFIG.serverInfo);
                     context.getSource().sendFeedback(() -> Text.literal(Main.CONFIG.serverInfo), false);
                     return Command.SINGLE_SUCCESS;
                 }));
