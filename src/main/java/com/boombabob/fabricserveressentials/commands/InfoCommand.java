@@ -14,7 +14,7 @@ public class InfoCommand implements ISECommand {
         if (Main.CONFIG.infoCommandEnabled) {
             dispatcher.register(literal("info")
                 .requires(Permissions.require("%s.info".formatted(Main.MODID)))
-                .requires(source -> source.hasPermissionLevel(1))
+                .requires(source -> source.hasPermissionLevel(0))
                 .executes(context ->
                 {
                     Main.LOGGER.info(Main.CONFIG.serverInfo);

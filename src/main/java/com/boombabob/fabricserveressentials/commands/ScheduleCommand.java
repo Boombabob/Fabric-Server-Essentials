@@ -52,7 +52,10 @@ public class ScheduleCommand implements ISECommand {
                         context.getSource().sendFeedback(() -> Text.literal("Scheduler Reloaded"), true);
                         return Command.SINGLE_SUCCESS;
                     })));
-            dispatcher.register(literal("schCmd").redirect(scheduleCommandNode));
+            dispatcher.register(literal("schCmd")
+                    .requires(Permissions.require("%s.scheduleCommand".formatted(Main.MODID)))
+                    .requires(source -> source.hasPermissionLevel(4))
+                    .redirect(scheduleCommandNode));
         }
     }
 }
