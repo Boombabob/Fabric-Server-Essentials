@@ -8,9 +8,9 @@ Listed below are all the features of the mod currently
 
 **/scheduleCommand list** to list scheduled commands
 
-**/scheduleCommand remove <hour> <minute>** to remove scheduled commands
+**```/scheduleCommand remove <hour> <minute>```** to remove scheduled commands
 
-**/scheduleCommand add <hour> <minute> <command>** to add scheduled commands
+**```/scheduleCommand add <hour> <minute> <command>```** to add scheduled commands
 
 The schedule command allows you to schedule certain commands to happen at any time in the day, allowing you to schedule things like restarting the server overnight. Please note that the remove command does not apply until after restarting the server, as it is not possible to cancel actions after they have been scheduled. In the future, I could add a reset command to reschedule everything, which would prevent you from having to restart. The scheduled commands are also saved in the config, so the schedule can be edited there. **Any command works with this, even ones from other mods.**
 
@@ -30,14 +30,14 @@ This command allows players to see information about the server. To change the i
 ## Coords command
 **/coords or /c** to send to everyone
 
-**/coords <recipients> or /c <recipients>** to send to specific players
+**```/coords <recipients> or /c <recipients>```** to send to specific players
 
-players on the server can type /c or /coords to send their coords to everyone on the server, or they can instead specify the players they want to send their coords to with /coords <Recipients>
+players on the server can type /c or /coords to send their coords to everyone on the server, or they can instead specify the players they want to send their coords to with ```/coords <Recipients>```
 
 ## Broadcast command
 ![in game screenshot of broadcast command](https://cdn.modrinth.com/data/v5D5j0kg/images/dfc1a2d45af544367aa09e1f497c59ef87b922c8.png)
 
-**/broadcast <color> <message>**
+**```/broadcast <color> <message>```**
 
 This command allows you to broadcast messages to everyone online on the server, which is useful for warning them about things such as server restarts. When paired with the schedule command, it is quite useful.
 
